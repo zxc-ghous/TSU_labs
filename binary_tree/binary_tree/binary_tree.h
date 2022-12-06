@@ -34,7 +34,7 @@ public:
 	{
 		root = nullptr;
 	}
-	~BinaryTree();
+	virtual ~BinaryTree();
 
 
 	Node* GetRoot() //получение корня дерева;
@@ -48,11 +48,11 @@ public:
 
 	}
 	void deleteTree(Node* p);   //очистка дерева (удаление всех узлов);
-	void Add(int k, Node* p); 	//добавление узла в дерево
+	virtual void addNode(int k, Node* p); 	//добавление узла в дерево
 	void PrintTree(Node* p); // вывод в консоль дерева по уровням (через последовательные вызовы предыдущего метода);
 	int getHeight(Node* p); // получение высоты дерева;
 	int getNodeCount(Node* p); //получение количества узлов дерева;
-	bool deleteNode(int item); //удаление узла из дерева по ключу (возвращает true, если узел был удалён);
+	virtual bool deleteNode(int item); //удаление узла из дерева по ключу (возвращает true, если узел был удалён);
 	vector<int> getTreeKeysVector(Node* p);  //получение вектора (std::vector<int>), содержащего все ключи дерева (обход вершин производить любым способом;
 	void printLevel(int level); // вывод в консоль уровня дерева
 	Node* FindKey(int k, Node* p);
@@ -60,6 +60,8 @@ public:
 	Node* find_parent(Node* child, vector<Node*> nodes);
 	Node* getMinimumKey(Node* p); 
 	void PrintTree(Node* p, int k); //вывод дерева на консоль, k - отступ от левой границы консоли
+	void copy(Node* subTreeRoot, Node*& copyRoot); //копирование
+	BinaryTree& operator = (BinaryTree& CopyTree); //перегрузка
 };
 
 

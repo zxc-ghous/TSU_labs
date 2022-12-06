@@ -26,7 +26,7 @@ BinaryTree::~BinaryTree()
 }
 
 
-void BinaryTree::Add(int k, Node* p) //добавление узла с ключом k в дерево с корнем p
+void BinaryTree::addNode(int k, Node* p) //добавление узла с ключом k в дерево с корнем p
 {
 	if (p == nullptr)
 	{
@@ -49,9 +49,9 @@ void BinaryTree::Add(int k, Node* p) //добавление узла с ключом k в дерево с кор
 	}
 	if (rand() % 2)
 	{
-		Add(k, p->left);
+		addNode(k, p->left);
 	}
-	else Add(k, p->right);
+	else addNode(k, p->right);
 }
 
 //корень-лево-право
@@ -102,7 +102,37 @@ std::vector<int> BinaryTree::getTreeKeysVector(Node* p)
 }
 
 
+void BinaryTree::copy(Node* outTree, Node*& inTree)// Копирование
+{
+	if (outTree == nullptr)
+	{
+		return;
+	}
+	if (outTree == inTree)
+	{
+		return;
+	}
+	if (outTree) {
+		inTree = new Node;
+		inTree->key = outTree->key;
+		inTree->left = nullptr;
+		inTree->right = nullptr;
+		copy(outTree->left, inTree->left);
+		copy(outTree->right, inTree->right);
+	}
+}
 
+BinaryTree& BinaryTree:: operator = (BinaryTree& outTree)
+{
+	if (&outTree == this) {
+		std::cerr << "The same tree";
+		return *this;
+	}
+	else {
+		deleteTree(this->root);
+		copy(outTree.GetRoot(), this->root);
+	}
+}
 //Node is a terminal node : In this case, if the node is a left child of its parent, then the left pointer of its parent is set to NULL.
 //Otherwise if the node is a right child of its parent, then the right pointer of its parent is set to NULL
 //Node has only one child : In this case, the appropriate pointer of its parent is set to child node.
@@ -250,7 +280,7 @@ vector<Node*> BinaryTree::get_all_nodes(Node* p)
 
 Node* BinaryTree::find_parent(Node* child, vector<Node*> nodes)
 {
-	if (child == root) { return root; }
+	if (child == root) { return nullptr; }
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		if (nodes[i]->left == child) { return nodes[i]; }

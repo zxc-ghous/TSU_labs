@@ -1,4 +1,3 @@
 ﻿  main.cpp
-C:\Users\sskil\source\repos\binary_tree\binary_tree\main.cpp(14,20): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\sskil\source\repos\binary_tree\binary_tree\main.cpp(20,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\sskil\source\repos\binary_tree\binary_tree\main.cpp(36,20): warning C4018: <: несоответствие типов со знаком и без знака
   binary_tree.vcxproj -> C:\Users\sskil\source\repos\binary_tree\Debug\binary_tree.exe

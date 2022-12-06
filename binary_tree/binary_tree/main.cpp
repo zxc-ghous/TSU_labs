@@ -3,26 +3,68 @@
 #include "binary_tree.h"
 #include "search_treeh.h"
 using namespace std;
-int main()
+
+void testTree(BinaryTree& tree, const int treesize)
 {
-	SearchTree st;
-	for (int i = 0; i < 100; i++)
+	//заполняем дерево 0,1,2,3.... и удаляем элементы в прямом порядке
+	//for (int i = 0; i < treesize; i++)
+	//{
+	//	tree.addNode(i, tree.GetRoot());
+	//}
+	//vector<int> nodes = tree.getTreeKeysVector(tree.GetRoot());
+	//for (int i = 0; i < nodes.size(); i++)
+	//{
+	//	tree.deleteNode(nodes[i]);
+	//}
+	//cout << "tree is empty: " << tree.isEmpty() << endl;
+	////заполняем дерево 0,1,2,3.... и удаляем элементы в обратном порядке
+	//for (int i = 0; i < treesize; i++)
+	//{
+	//	tree.addNode(i, tree.GetRoot());
+	//}
+	//for (int i = nodes.size()-1; i >= 0; i--)
+	//{
+	//	tree.deleteNode(nodes[i]);
+	//}
+	//cout << "tree is empty: " << tree.isEmpty() << endl;
+	//заполняем дерево случайными числами и удаляем элементы в прямом порядке
+	for (int i = 0; i < treesize; i++)
 	{
-		st.addNode(rand() % 100, st.GetRoot());
+		tree.addNode(rand()%50, tree.GetRoot());
 	}
-	vector<int> nodes = st.getTreeKeysVector(st.GetRoot());
+	vector<int> nodes = tree.getTreeKeysVector(tree.GetRoot());
 	for (int i = 0; i < nodes.size(); i++)
 	{
-		cout << nodes[i] << " ";
+		tree.deleteNode(nodes[i]);
 	}
-	cout << "\n";
-	//st.PrintTree(st.GetRoot(), 5);
-	for (int i = 1 ; i < nodes.size(); i++)
+	cout << "tree is empty: " << tree.isEmpty() << endl;
+}
+
+void testTree(const int treesize)
+{
+	BinaryTree bt;
+	SearchTree st;
+	cout << "binary tree test: " << endl;
+	testTree(bt, treesize);
+	cout << "--------------------------------" << endl;
+	cout << "--------------------------------" << endl;
+	cout << "search tree test: " << endl;
+	testTree(st, treesize);
+}
+
+int main()
+{
+	//testTree(10);
+	SearchTree bt1;
+	SearchTree bt2;
+	for (int i = 0; i < 8; i++)
 	{
-		st.deleteStNode(st.GetRoot(),nodes[i]);
+		bt1.addNode(rand() % 10, bt1.GetRoot());
 	}
-	st.deleteStNode(st.GetRoot(), 41);
-	cout << st.isEmpty();
+	bt1.PrintTree(bt1.GetRoot(), 5);
+	cout << "---------------copy bt1 to bt2--------------" << endl;
+	bt2 = bt1;
+	bt2.PrintTree(bt1.GetRoot(), 5);
 
 }
 
