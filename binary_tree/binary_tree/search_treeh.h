@@ -20,6 +20,7 @@ bool SearchTree::deleteNode(int item)
 	Node* p = FindKey(item, GetRoot());
 	Node* parent = find_parent(p, nodes);
 	if (!p) { return false; }
+	//ok
 	if (p == root)
 	{
 		if (p->right)
@@ -47,19 +48,19 @@ bool SearchTree::deleteNode(int item)
 		root = nullptr;
 		return true;
 	}
+	//ok
 	if (p->left == nullptr && p->right == nullptr)
 	{
-		if (parent && parent->left == p)
+		if (parent)
 		{
-			parent->left = nullptr;
-		}
-		if (parent && parent->right == p)
-		{
-			parent->right = nullptr;
-		}
-		if (!parent)
-		{
-			root = nullptr;
+			if (parent->left == p)
+			{
+				parent->left = nullptr;
+			}
+			else
+			{
+				parent->right = nullptr;
+			}
 		}
 		delete(p);
 		return true;
@@ -80,7 +81,7 @@ bool SearchTree::deleteNode(int item)
 		}
 		delete(p);
 		return true;
-	}
+	} 
 	if (p->left != nullptr && p->right == nullptr)
 	{
 		if (parent && parent->left == p)
@@ -98,25 +99,25 @@ bool SearchTree::deleteNode(int item)
 		delete(p);
 		return true;
 	}
+	//ok
 	if (p->left && p->right)
 	{
-		Node* for_insert = getMin(p->right);
-		Node* parent_insert = find_parent(for_insert, nodes);
-		if (parent_insert)
+		if (parent->left == p)
 		{
-			parent_insert->left = for_insert->right;
-			for_insert->left = p->left;
-			for_insert->right = p->right;
+			parent->left = p->right;
+			Node* min_in_right =SearchTree::getMin(p->right);
+			min_in_right->left = p->left;
+			delete(p);
+			return true;
 		}
 		else
 		{
-			for_insert->left = p->left;
+			parent->right = p->right;
+			Node* min_in_right = SearchTree::getMin(p->right);
+			min_in_right->left = p->left;
+			delete(p);
+			return true;
 		}
-		if (parent && parent->left == p) { parent->left = for_insert; }
-		if (parent && parent->right == p) { parent->right = for_insert; }
-		if (!parent) { root = for_insert; }
-		delete(p);
-		return true;
 	}
 	return false;
 }

@@ -6,38 +6,42 @@ using namespace std;
 
 void testTree(BinaryTree& tree, const int treesize)
 {
-	//заполняем дерево 0,1,2,3.... и удаляем элементы в прямом порядке
-	//for (int i = 0; i < treesize; i++)
-	//{
-	//	tree.addNode(i, tree.GetRoot());
-	//}
-	//vector<int> nodes = tree.getTreeKeysVector(tree.GetRoot());
-	//for (int i = 0; i < nodes.size(); i++)
-	//{
-	//	tree.deleteNode(nodes[i]);
-	//}
-	//cout << "tree is empty: " << tree.isEmpty() << endl;
-	////заполняем дерево 0,1,2,3.... и удаляем элементы в обратном порядке
-	//for (int i = 0; i < treesize; i++)
-	//{
-	//	tree.addNode(i, tree.GetRoot());
-	//}
-	//for (int i = nodes.size()-1; i >= 0; i--)
-	//{
-	//	tree.deleteNode(nodes[i]);
-	//}
-	//cout << "tree is empty: " << tree.isEmpty() << endl;
-	//заполняем дерево случайными числами и удаляем элементы в прямом порядке
+	BinaryTree& tree1 = tree;
+	BinaryTree& tree2 = tree;
+	BinaryTree& tree3 = tree;
+	//заполняем дерево tree1 0,1,2,3.... и удаляем элементы в прямом порядке
 	for (int i = 0; i < treesize; i++)
 	{
-		tree.addNode(rand()%50, tree.GetRoot());
+		tree1.addNode(i, tree1.GetRoot());
 	}
-	vector<int> nodes = tree.getTreeKeysVector(tree.GetRoot());
-	for (int i = 0; i < nodes.size(); i++)
+	vector<int> tree1_nodes = tree1.getTreeKeysVector(tree1.GetRoot());
+	for (int i = 0; i < tree1_nodes.size(); i++)
 	{
-		tree.deleteNode(nodes[i]);
+		tree1.deleteNode(tree1_nodes[i]);
 	}
-	cout << "tree is empty: " << tree.isEmpty() << endl;
+	cout << "tree1 is empty: " << tree1.isEmpty() << endl;
+	//заполняем дерево tree2 0,1,2,3.... и удаляем элементы в обратном порядке
+	for (int i = 0; i < treesize; i++)
+	{
+		tree2.addNode(i, tree2.GetRoot());
+	}
+	vector<int> tree2_nodes = tree2.getTreeKeysVector(tree2.GetRoot());
+	for (int i = tree2_nodes.size()-1; i >= 0; i--)
+	{
+		tree2.deleteNode(tree2_nodes[i]);
+	}
+	cout << "tree2 is empty: " << tree2.isEmpty() << endl;
+	//заполняем дерево tree3 случайными числами и удаляем элементы в прямом порядке
+	for (int i = 0; i < treesize; i++)
+	{
+		tree3.addNode(rand()%50, tree3.GetRoot());
+	}
+	vector<int> tree3_nodes = tree3.getTreeKeysVector(tree3.GetRoot());
+	for (int i = 0; i < tree3_nodes.size(); i++)
+	{
+		tree3.deleteNode(tree3_nodes[i]);
+	}
+	cout << "tree3 is empty: " << tree3.isEmpty() << endl;
 }
 
 void testTree(const int treesize)
@@ -54,17 +58,30 @@ void testTree(const int treesize)
 
 int main()
 {
-	//testTree(10);
-	SearchTree bt1;
-	SearchTree bt2;
-	for (int i = 0; i < 8; i++)
-	{
-		bt1.addNode(rand() % 10, bt1.GetRoot());
-	}
-	bt1.PrintTree(bt1.GetRoot(), 5);
-	cout << "---------------copy bt1 to bt2--------------" << endl;
-	bt2 = bt1;
-	bt2.PrintTree(bt1.GetRoot(), 5);
+	testTree(400);
+	//int treesize = 250;
+	//SearchTree tree3;
+	//for (int i = 0; i < treesize; i++)
+	//{
+	//	tree3.addNode(rand() % 50, tree3.GetRoot());
+	//}
+	//tree3.PrintTree(tree3.GetRoot(), 5);
+	//vector<int> tree3_nodes = tree3.getTreeKeysVector(tree3.GetRoot());
+	//for (int i = 0; i < tree3_nodes.size(); i++)
+	//{
+	//	cout<<tree3.deleteNode(tree3_nodes[i])<<endl;
+	//}
+	//cout << "tree3 is empty: " << tree3.isEmpty() << endl;
+	//SearchTree bt1;
+	//SearchTree bt2;
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	bt1.addNode(rand() % 10, bt1.GetRoot());
+	//}
+	//bt1.PrintTree(bt1.GetRoot(), 5);
+	//cout << "---------------copy bt1 to bt2--------------" << endl;
+	//bt2 = bt1;
+	//bt2.PrintTree(bt1.GetRoot(), 5);
 
 }
 
