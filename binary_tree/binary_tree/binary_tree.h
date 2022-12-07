@@ -19,8 +19,13 @@ public:
 	}
 
 	int GetKey()
-	{
-		return key;
+    {
+        if (this==nullptr)
+        {
+            return -1;
+        }
+        return key;
+
 	}
 	friend class BinaryTree;
 };
@@ -55,7 +60,7 @@ public:
 	virtual bool deleteNode(int item); //удаление узла из дерева по ключу (возвращает true, если узел был удалён);
 	vector<int> getTreeKeysVector(Node* p);  //получение вектора (std::vector<int>), содержащего все ключи дерева (обход вершин производить любым способом;
 	void printLevel(int level); // вывод в консоль уровня дерева
-	Node* FindKey(int k, Node* p);
+    virtual Node* FindKey(int k, Node* p);
 	vector<Node*> get_all_nodes(Node* p);
 	Node* find_parent(Node* child, vector<Node*> nodes);
 	Node* getMinimumKey(Node* p); 

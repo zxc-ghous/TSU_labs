@@ -12,7 +12,25 @@ public:
 	Node* getMax(Node* p);  //максимального ключа 
 	Node* deleteStNode(Node* p, int k); //удаление узла из дерева по ключу рекурсивная реализация
 	bool deleteNode(int item) override; //удаление узла из дерева по ключу (возвращает true, если узел был удалён);
+    Node* FindKey(int k, Node* p) override;
 };
+
+
+Node* SearchTree::FindKey(int k, Node* p)
+{
+    if (!p) return nullptr;
+    if (k==p->key) return p;
+    if (k>p->key)
+    {
+        FindKey(k,p->right);
+    }
+    else
+    {
+        FindKey(k,p->left);
+    }
+}
+
+
 
 bool SearchTree::deleteNode(int item)
 {
