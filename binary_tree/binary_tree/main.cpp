@@ -109,36 +109,60 @@ void testTree(const int treesize, bool printTree=false)
     BinaryTree bt;
     SearchTree st;
     cout << "binary tree test: " << endl;
-    testTree(bt, treesize);
+    //testTree(bt, treesize);
     cout << "--------------------------------" << endl;
     cout << "--------------------------------" << endl;
     cout << "search tree test: " << endl;
-    testTree(st, treesize);
+    //testTree(st, treesize);
     testSTTree(st, treesize,printTree);
 }
 
 int main()
 {
-    //testTree(15,true);
-    SearchTree tree3;
-    tree3.addNode(8,tree3.GetRoot());
-    tree3.addNode(3,tree3.GetRoot());
-    tree3.addNode(10,tree3.GetRoot());
-    tree3.addNode(1,tree3.GetRoot());
-    tree3.addNode(6,tree3.GetRoot());
-    tree3.addNode(14,tree3.GetRoot());
-    tree3.addNode(4,tree3.GetRoot());
-    tree3.addNode(7,tree3.GetRoot());
-    tree3.addNode(3,tree3.GetRoot());
-    tree3.addNode(13,tree3.GetRoot());
-    cout<<"delete tree3 only root element"<<endl;
-    for (int i = 0; i < 10; i++)
-    {
-            tree3.PrintTree(tree3.GetRoot(),5);
-            cout<<"------root element "<<tree3.GetRoot()->GetKey()<<"--------"<<endl;
-            tree3.deleteNode(tree3.GetRoot()->GetKey());
+    SearchTree tree;
+    int size = 1;
+
+    std::vector<int> keys;
+    for (int i = 0; i < size; i++) {
+        keys.push_back(i + 1);
     }
-    cout << "tree3 is empty: " << tree3.isEmpty() << endl;
+
+    for (int i = 0; i < size; i++) {
+        int index = rand() % keys.size();
+        tree.addNode(keys[index], tree.GetRoot());
+        keys.erase(keys.begin() + index);
+    }
+    tree.PrintTree(tree.GetRoot(), 5);
+
+    while (!tree.isEmpty()) {
+        int key;
+        cin >> key;
+        cout << (tree.deleteNode(key) ? "true" : "false") << endl;
+        tree.PrintTree(tree.GetRoot(), 5);
+    }
+    return 0;
+    Node *node = tree.FindKey(17, tree.GetRoot());
+    std::cout << tree.FindKey(17, tree.GetRoot())->GetKey() << std::endl;
+    //testTree(15,true);
+//    SearchTree tree3;
+//    tree3.addNode(8,tree3.GetRoot());
+//    tree3.addNode(3,tree3.GetRoot());
+//    tree3.addNode(10,tree3.GetRoot());
+//    tree3.addNode(1,tree3.GetRoot());
+//    tree3.addNode(6,tree3.GetRoot());
+//    tree3.addNode(14,tree3.GetRoot());
+//    tree3.addNode(4,tree3.GetRoot());
+//    tree3.addNode(7,tree3.GetRoot());
+//    tree3.addNode(3,tree3.GetRoot());
+//    tree3.addNode(13,tree3.GetRoot());
+//    cout<<"delete tree3 only root element"<<endl;
+//    for (int i = 0; i < 10; i++)
+//    {
+//            tree3.PrintTree(tree3.GetRoot(),5);
+//            cout<<"------root element "<<tree3.GetRoot()->GetKey()<<"--------"<<endl;
+//            tree3.deleteNode(tree3.GetRoot()->GetKey());
+//    }
+//    cout << "tree3 is empty: " << tree3.isEmpty() << endl;
 //    int treeSize=8;
 //    SearchTree tree3;
 //    for (int i = 0; i < treeSize; i++)

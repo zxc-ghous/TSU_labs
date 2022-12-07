@@ -9,7 +9,7 @@ public:
 	~SearchTree() override = default;  //деструктор
 	void addNode(int k, Node* p) override; //добавление узла в дерево
 	Node* getMin(Node* p);  //получение минимального
-	Node* getMax(Node* p);  //максимального ключа 
+    Node* getMax(Node* p);  //максимального ключа
 	Node* deleteStNode(Node* p, int k); //удаление узла из дерева по ключу рекурсивная реализация
 	bool deleteNode(int item) override; //удаление узла из дерева по ключу (возвращает true, если узел был удалён);
     Node* FindKey(int k, Node* p) override;
@@ -22,11 +22,11 @@ Node* SearchTree::FindKey(int k, Node* p)
     if (k==p->key) return p;
     if (k>p->key)
     {
-        FindKey(k,p->right);
+        return FindKey(k,p->right);
     }
     else
     {
-        FindKey(k,p->left);
+        return FindKey(k,p->left);
     }
 }
 
