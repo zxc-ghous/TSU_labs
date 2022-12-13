@@ -59,53 +59,34 @@ void Huffman::encode(Node* root, string str, unordered_map<char, string>& huffma
 	encode(root->right, str + "1", huffmanCode);
 }
 
-float Huffman::encode(string originalText)
+
+float Huffman::encode(string originalText, string& coded)
 {
+	assert(!originalText.empty() && "string is empty");
+	buildHuffmanTree(originalText);
 	float originalBitSum = 0;
 	float codedBitSum = 0;
-	for (char letter : originalText)
+	coded = "";
+	for (int i = 0; i < originalText.size(); i++)
 	{
-		originalBitSum += 3;
-	}
-	unordered_map<char, string>::iterator hf = huffmanCode.begin();
-	unordered_map<char, int>::iterator fr = freq.begin();
-	while (hf != huffmanCode.end())
-	{
-		codedBitSum += hf->second.size() * fr->second;
-		++hf; ++fr;
+		for (auto it = huffmanCode.begin(); it != huffmanCode.end(); ++it)
+		{
+			if (originalText[i] == it->first)
+			{
+				coded += it->second;
+				codedBitSum += it->second.size();
+			}
+		}
+		originalBitSum += 8;
 	}
 	return codedBitSum / originalBitSum;
 }
 
-void Huffman::decode(Node* root, int& index, string str)
+
+bool Huffman::decode(string codedText, string& decodeText)
 {
-	if (root == nullptr)
-	{
-		return;
-	}
-
-	// found a leaf node
-	if (!root->left && !root->right)
-	{
-		cout << root->data;
-		return;
-	}
-
-	index++;
-
-	if (str[index] == '0')
-	{
-		decode(root->left, index, str);
-	}
-	else
-	{
-		decode(root->right, index, str);
-	}
-}
-
-bool Huffman::decode(string codedText, string originalText)
-{
-	string decode = "";
+	assert(!codedText.empty() && "string is empty");
+	decodeText = "";
 	int main_counter = 0;
 	for (int i = main_counter; i < codedText.size();)
 	{
@@ -120,7 +101,7 @@ bool Huffman::decode(string codedText, string originalText)
 				}
 				else
 				{
-					decode += temp->data;
+					decodeText += temp->data;
 					break;
 				}
 			}
@@ -132,7 +113,7 @@ bool Huffman::decode(string codedText, string originalText)
 				}
 				else
 				{
-					decode += temp->data;
+					decodeText += temp->data;
 					break;
 				}
 			}
@@ -140,46 +121,39 @@ bool Huffman::decode(string codedText, string originalText)
 			main_counter = i;
 		}
 	}
-	if (decode == originalText) { return true; }
-	else { return false; }
+	return true;
 }
 
-string Huffman::buildHuffmanTree(string text, bool print)
+
+
+
+void Huffman::buildHuffmanTree(string text)
 {
-	// count frequency of appearance of each character
-	// and store it in a map
 	for (char ch : text) 
 	{
 		freq[ch]++;
 	}
-	// Create a priority queue to store live nodes of Huffman tree;
 	priority_queue<Node*, vector<Node*>, comparator> pq;
-	// Create a leaf node for each character and add it to the priority queue.
 	for (auto pair : freq) 
 	{
 		Node* temp = new Node(pair.first, pair.second, nullptr, nullptr);
 		pq.push(temp);
 	}
-	// do till there is more than one node in the queue
 	while (pq.size() != 1)
 	{
-		// Remove the two nodes of highest priority
-		// (lowest frequency) from the queue
-		Node* left = pq.top(); pq.pop();
-		Node* right = pq.top();	pq.pop();
+		Node* left = pq.top(); 
+		pq.pop();
 
-		// Create a new internal node with these two nodes
-		// as children and with frequency equal to the sum
-		// of the two nodes' frequencies. Add the new node to the priority queue.
+		Node* right = pq.top();	
+		pq.pop();
+
 		int sum = left->freq + right->freq;
-		Node* temp = new Node('\0', sum, left, right);
-		pq.push(temp);
+		Node* top = new Node('\0', sum, left, right);
+		top->left = left;
+		top->right = right;
+		pq.push(top);
 	}
-	// root stores pointer to root of Huffman Tree
 	root = pq.top();
-
-	// traverse the Huffman Tree and store Huffman Codes
-	// in a map. Also prints them
 	if (!root->left && !root->right)
 	{
 		encode(root, "0", huffmanCode);
@@ -188,29 +162,4 @@ string Huffman::buildHuffmanTree(string text, bool print)
 	{
 		encode(root, "", huffmanCode);
 	}
-
-	string str = "";
-	for (char ch : text) 
-	{
-		str += huffmanCode[ch];
-	}
-	if (print)
-	{
-		cout << "huffman codes are :\n" << '\n';
-		for (auto pair : huffmanCode) {
-			cout << pair.first << " " << pair.second << '\n';
-		}
-
-		cout << "\noriginal string was :\n" << text << '\n';
-		cout << "\nencoded string is :\n" << str << '\n';
-		// traverse the huffman tree again and this time
-		// decode the encoded string
-		int index = -1;
-		cout << "\ndecoded string is: \n";
-		while (index < (int)str.size() - 1) {
-			decode(root, index, str);
-		}
-		cout << "\n\n";
-	}
-	return str;
 }

@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <queue>
 #include <map>
+#include <cassert>  
 using namespace std;
 
 class Node
@@ -35,15 +36,12 @@ public:
 	void deleteTree(Node* p);
 	void printTree(int k, Node* p);
 	Node* getRoot() { return root; }
-	// traverse the Huffman Tree and store Huffman Codes in a map.
 	void encode(Node* root, string str, unordered_map<char, string>& huffmanCode);
-	float encode(string originalText);
-	// traverse the Huffman Tree and decode the encoded string
-	void decode(Node* root, int& index, string str);
-	bool decode(string codedText, string originalText);
+	bool decode(string codedText, string& decodeText);
+	float encode(string stringIn, string& stringOut);
 
 	// Builds Huffman Tree and decode given input text
-	string buildHuffmanTree(string text, bool print = false);
+	void buildHuffmanTree(string text);
 	struct comparator
 	{
 		bool operator()(Node* left, Node* right)

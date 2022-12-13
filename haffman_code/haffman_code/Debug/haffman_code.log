@@ -1,3 +1,7 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: промежуточный каталог (Debug\) содержит файлы, которые используются совместно с другим проектом (haffman_code.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  huffman.cpp
+C:\Users\sskil\source\repos\haffman_code\haffman_code\huffman.cpp(70,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\sskil\source\repos\haffman_code\haffman_code\huffman.cpp(91,31): warning C4018: <: несоответствие типов со знаком и без знака
   huffman_code.cpp
-C:\Users\sskil\source\repos\haffman_code\haffman_code\huffman_code.cpp(13,38): error C2065: coded: необъявленный идентификатор
+  Создание кода...
+  haffman_code.vcxproj -> C:\Users\sskil\source\repos\haffman_code\Debug\huffman_code.exe
